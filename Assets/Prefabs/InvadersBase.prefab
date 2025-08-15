@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6410921324354436290}
   - component: {fileID: 2340840119263118194}
   - component: {fileID: 4113417337992713012}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: InvadersBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
