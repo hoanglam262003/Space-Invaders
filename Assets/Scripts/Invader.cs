@@ -1,11 +1,15 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCollider2D))]
 public class Invader : MonoBehaviour
 {
-    public Sprite[] sprites;
+    public Sprite[] sprites = new Sprite[0];
     public float animationTime = 1.0f;
     public System.Action killed;
+    public int score = 10;
 
     private SpriteRenderer spriteRenderer;
     private int animationFrame;
@@ -13,6 +17,7 @@ public class Invader : MonoBehaviour
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = sprites[0];
     }
 
     private void Start()
@@ -36,8 +41,11 @@ public class Invader : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Laser"))
         {
-            this.killed.Invoke();
-            this.gameObject.SetActive(false);
+            GameManager.Instance.OnInvaderKilled(this);
+        }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Boundary"))
+        {
+            GameManager.Instance.OnBoundaryReached();
         }
     }
 }
